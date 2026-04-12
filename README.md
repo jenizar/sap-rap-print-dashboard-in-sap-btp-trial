@@ -10,4 +10,6 @@ Features:
 
 ![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic2.png)
 
+![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic3.png)
 
+![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic4.png)
