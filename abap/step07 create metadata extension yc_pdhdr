@@ -1,0 +1,47 @@
+//@Metadata.layer: layer
+@Metadata.layer: #CUSTOMER
+@UI: { 
+        headerInfo: { 
+                        typeName: 'Tera Computech Inc & Subsidiaries', typeNamePlural: 'Company',
+                        title: { type: #STANDARD, label: 'Company', value: 'CompanyName'  }
+                    }
+}
+annotate entity YC_PDHDR
+    with 
+{
+  @EndUserText.label: 'Company Code'
+  @UI.lineItem: [{ position: 10, type: #FOR_ACTION, label: 'Print Dashboard', dataAction: 'print_dashboard' }]
+  @UI.selectionField: [{ position: 10 }]
+    @UI.facet: [{   purpose: #STANDARD, 
+                    type: #IDENTIFICATION_REFERENCE,
+                    label: 'General data',
+                    position: 10
+                },
+                
+                {                     
+                    purpose: #STANDARD, 
+                    type: #LINEITEM_REFERENCE,
+                    label: 'Services',
+                    position: 20,
+                    targetElement: '_Item'
+                }
+                ]
+      @UI.identification: [ { position: 10 } ]
+  CompanyCode;
+  @EndUserText.label: 'Company Name'
+  @UI.lineItem: [ { position: 20 } ]
+  @UI.identification: [{ position: 20 }]
+  @UI.selectionField: [{ position: 20 }]
+  CompanyName;
+  @EndUserText.label: 'Address'
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.identification: [{ position: 30 }]
+  @UI.selectionField: [{ position: 30 }]
+  AddressLocation; 
+  
+  @EndUserText.label: 'Tax ID'
+  @UI.lineItem: [ { position: 40 } ]
+  @UI.identification: [{ position: 40 }]
+  @UI.selectionField: [{ position: 40 }]
+  TaxId;
+}
