@@ -13,3 +13,11 @@ Features:
 ![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic3.png)
 
 ![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic4.png)
+
+references:
+
+1. 
+
+2. https://community.sap.com/t5/technology-blog-posts-by-members/consuming-rest-apis-with-cloud-abap/ba-p/13465564
+
+3. https://stackoverflow.com/questions/73682757/how-to-convert-string-into-list
