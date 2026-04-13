@@ -1,0 +1,5 @@
+@EndUserText.label: 'Print Dashboard Service Def.'
+define service YSD_PD_SRV {
+  expose YC_PDHDR as Header;
+  expose YC_PDITM as Item;
+}
