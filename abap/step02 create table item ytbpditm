@@ -1,0 +1,22 @@
+@EndUserText.label : 'Dashboard Item'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table ytbpditm {
+
+  key client            : abap.clnt not null;
+  key company_code      : bukrs not null;
+  key ebelp             : ebelp not null;
+  service_name          : abap.char(30) not null;
+  begin_date            : abap.char(8);
+  end_date              : abap.char(8);
+  remain_days           : abap.int2;
+  service_status        : abap.char(20);
+  local_created_by      : abp_creation_user;
+  local_created_at      : abp_creation_tstmpl;
+  local_last_changed_by : abp_locinst_lastchange_user;
+  local_last_changed_at : abp_locinst_lastchange_tstmpl;
+  last_changed_at       : abp_lastchange_tstmpl;
+
+}
