@@ -1,0 +1,27 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Print Dashboard Item View'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity YI_PDITM as select from ytbpditm
+association to parent YI_PDHDR as _Header
+    on $projection.CompanyCode = _Header.CompanyCode
+{
+    key company_code as CompanyCode,
+    key ebelp as ItemNumber,
+    service_name as ServiceName,
+    begin_date as BeginDate,
+    end_date as EndDate,
+    remain_days as RemainDays,
+    service_status as ServiceStatus,
+    @Semantics.user.createdBy: true
+    local_created_by as LocalCreatedBy,
+    @Semantics.systemDateTime.createdAt: true
+    local_created_at as LocalCreatedAt,
+    @Semantics.user.lastChangedBy: true
+    local_last_changed_by as LocalLastChangedBy,
+    @Semantics.systemDateTime.localInstanceLastChangedAt: true 
+    local_last_changed_at as LocalLastChangedAt,
+    @Semantics.systemDateTime.lastChangedAt: true
+    last_changed_at as LastChangedAt,
+    _Header // Make association public
+}
+
