@@ -1,0 +1,51 @@
+//@Metadata.layer: layer
+@Metadata.layer: #CUSTOMER
+
+annotate entity YC_PDITM
+    with 
+{
+  @UI.facet: [{ //id : 'PO_Details_items',
+          purpose: #STANDARD,
+          type: #IDENTIFICATION_REFERENCE,
+          label: 'General Data',
+          position: 10
+       }]
+  @UI.hidden: true
+  CompanyCode;
+  
+  @EndUserText.label: 'Item No.'
+  @UI.lineItem: [ { position: 10 } ]
+  @UI.identification: [{ position: 10 }]
+  @UI.selectionField: [{ position: 10 }]
+  ItemNumber;  
+  
+  @EndUserText.label: 'Service Name'
+  @UI.lineItem: [ { position: 20 } ]
+  @UI.identification: [{ position: 20 }]
+  @UI.selectionField: [{ position: 20 }]
+  ServiceName;  
+  
+  @EndUserText.label: 'Begin Date'
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.identification: [{ position: 30 }]
+  @UI.selectionField: [{ position: 30 }]
+  BeginDate;      
+  
+  @EndUserText.label: 'End Date'
+  @UI.lineItem: [ { position: 40 } ]
+  @UI.identification: [{ position: 40 }]
+  @UI.selectionField: [{ position: 40 }]
+  EndDate;   
+  
+  @EndUserText.label: 'Remaining Days'
+  @UI.lineItem: [ { position: 50, cssDefault.width: '10em' } ]
+  @UI.identification: [{ position: 50 }]
+  @UI.selectionField: [{ position: 50 }]
+  RemainDays;   
+  
+  @EndUserText.label: 'Status'
+  @UI.lineItem: [ { position: 60 } ]
+  @UI.identification: [{ position: 60 }]
+  @UI.selectionField: [{ position: 60 }]
+  ServiceStatus;       
+}
