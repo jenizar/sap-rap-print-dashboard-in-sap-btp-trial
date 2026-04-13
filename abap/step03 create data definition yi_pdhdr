@@ -1,0 +1,23 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Print Dashboard Header View'
+@Metadata.ignorePropagatedAnnotations: true
+define root view entity YI_PDHDR as select from YTBPDHDR
+composition [0..*] of YI_PDITM as _Item
+{
+    key company_code as CompanyCode,
+    company_name as CompanyName,
+    address_location as AddressLocation,
+    tax_id as TaxId,
+    @Semantics.user.createdBy: true
+    local_created_by as LocalCreatedBy,
+    @Semantics.systemDateTime.createdAt: true
+    local_created_at as LocalCreatedAt,
+    @Semantics.user.lastChangedBy: true
+    local_last_changed_by as LocalLastChangedBy,
+    @Semantics.systemDateTime.localInstanceLastChangedAt: true
+    local_last_changed_at as LocalLastChangedAt,
+    @Semantics.systemDateTime.lastChangedAt: true
+    last_changed_at as LastChangedAt,
+    _Item // Make association public
+}
+
