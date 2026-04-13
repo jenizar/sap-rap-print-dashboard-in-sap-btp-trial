@@ -1,0 +1,111 @@
+CLASS LHC_HEADER DEFINITION INHERITING FROM CL_ABAP_BEHAVIOR_HANDLER.
+  PRIVATE SECTION.
+
+    CONSTANTS:
+      base_url     TYPE string VALUE 'https://6750-111-94-3-42.ngrok-free.app/dashboard',
+      content_type TYPE string VALUE 'Content-type',
+      json_content TYPE string VALUE 'application/json; charset=UTF-8'.
+
+        DATA lv_json_payload TYPE string.
+
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      IMPORTING keys REQUEST requested_authorizations FOR Header RESULT result.
+    METHODS print_dashboard FOR MODIFY
+      IMPORTING keys FOR ACTION HEADER~print_dashboard.
+
+    METHODS create_client
+        IMPORTING url           TYPE string
+        RETURNING VALUE(result) TYPE REF TO if_web_http_client
+        RAISING   cx_static_check.
+
+    METHODS create_post
+        IMPORTING post_without_id TYPE string
+        RETURNING VALUE(result)   TYPE string
+        RAISING   cx_static_check.
+ENDCLASS.
+
+CLASS LHC_HEADER IMPLEMENTATION.
+  METHOD get_instance_authorizations.
+  ENDMETHOD.
+
+  METHOD print_dashboard.
+    DATA: lv_service TYPE string,
+          lv_result TYPE string.
+
+    TYPES : BEGIN OF ty_gab,
+             company       TYPE ytbpdhdr-company_name,
+             address       TYPE ytbpdhdr-address_location,
+             service_name  TYPE ytbpditm-service_name,
+             begin_date    TYPE ytbpditm-begin_date,
+             end_date      TYPE ytbpditm-end_date,
+             remain_days   TYPE ytbpditm-remain_days,
+             status        TYPE ytbpditm-service_status,
+            END OF ty_gab.
+    DATA : gt_data TYPE TABLE OF ty_gab,
+           gs_data TYPE ty_gab.
+
+      READ ENTITY IN LOCAL MODE YI_PDHDR
+       ALL FIELDS WITH CORRESPONDING #( keys )
+         RESULT DATA(it_data).
+
+      LOOP AT it_data INTO DATA(wa_data).
+        SELECT * FROM YTBPDITM WHERE company_code = @wa_data-companycode INTO TABLE @DATA(gt_pditm).
+      ENDLOOP.
+
+      LOOP AT gt_pditm INTO DATA(wa_pditm).
+        READ TABLE it_data INTO DATA(wa_hdr) WITH KEY companycode = wa_pditm-company_code.
+         gs_data-company = wa_hdr-companyname.
+         gs_data-address = wa_hdr-addresslocation.
+         gs_data-service_name = wa_pditm-service_name.
+         gs_data-begin_date = wa_pditm-begin_date.
+         gs_data-end_date = wa_pditm-end_date.
+         gs_data-remain_days = wa_pditm-remain_days.
+         gs_data-status = wa_pditm-service_status.
+        APPEND gs_data TO gt_data.
+      ENDLOOP.
+
+   /UI2/CL_JSON=>serialize(
+     EXPORTING
+      data        = gt_data               " Data to serialize (internal table)
+      pretty_name = 'L' "/UI2/CL_JSON=>pretty_mode-low_case " Optional: formats field names as low_case
+     RECEIVING
+      r_json      = lv_json_payload                " The resulting JSON string
+).
+
+    TRY.
+        " Create
+        DATA(create_response) = create_post( lv_json_payload ).
+
+      CATCH cx_root INTO DATA(exc).
+
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD create_client.
+    DATA(dest) = cl_http_destination_provider=>create_by_url( url ).
+    result = cl_web_http_client_manager=>create_by_http_destination( dest ).
+  ENDMETHOD.
+
+  METHOD create_post.
+    " Convert input post to JSON
+    DATA(json_post) = xco_cp_json=>data->from_abap( post_without_id )->apply(
+      VALUE #( ( xco_cp_json=>transformation->underscore_to_camel_case ) ) )->to_string(  ).
+
+    " Send JSON of post to server and return the response
+    DATA(url) = |{ base_url }|.
+    DATA(client) = create_client( url ).
+    DATA(req) = client->get_http_request(  ).
+    req->set_text( json_post ).
+    req->set_header_field( i_name = content_type i_value = json_content ).
+
+    result = client->execute( if_web_http_client=>post )->get_text(  ).
+
+    client->close(  ).
+  ENDMETHOD.
+
+
+
+ENDCLASS.
+*"* use this source file for the definition and implementation of
+*"* local helper classes, interface definitions and type
+*"* declarations
