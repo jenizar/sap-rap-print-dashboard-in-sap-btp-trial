@@ -1,0 +1,21 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Print Dashboard Item App'
+//@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
+define view entity YC_PDITM as projection on YI_PDITM
+{
+    key CompanyCode,
+    key ItemNumber,
+    ServiceName,
+    BeginDate,
+    EndDate,
+    RemainDays,
+    ServiceStatus,
+    LocalCreatedBy,
+    LocalCreatedAt,
+    LocalLastChangedBy,
+    LocalLastChangedAt,
+    LastChangedAt,
+    /* Associations */
+    _Header : redirected to parent YC_PDHDR
+}
