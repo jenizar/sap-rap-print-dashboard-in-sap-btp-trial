@@ -1,0 +1,21 @@
+projection;
+//strict ( 2 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for YC_PDHDR alias Header
+{
+  use create;
+  use update;
+  use delete;
+
+  use action print_dashboard;
+
+  use association _Item { create; }
+}
+
+define behavior for YC_PDITM alias Item
+{
+  use update;
+  use delete;
+
+  use association _Header;
+}
