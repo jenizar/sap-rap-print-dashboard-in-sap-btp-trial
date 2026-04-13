@@ -6,6 +6,10 @@ Features:
 - Javascript - ChartJS Library
 - HTML format (able to pdf format)
 
+Demo :
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/ap_Ocv_AuDU/0.jpg)](http://www.youtube.com/watch?v=ap_Ocv_AuDU)
+
 ![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic1.png)
 
 ![alt text](https://github.com/jenizar/sap-rap-print-dashboard-in-sap-btp-trial/blob/main/screenshots/pic2.png)
