@@ -16,7 +16,7 @@ Features:
 
 references:
 
-1. 
+1. https://sapcloudapps.wordpress.com/2026/04/13/sap-rap-print-service-license-dashboard-in-sap-btp-trial/
 
 2. https://community.sap.com/t5/technology-blog-posts-by-members/consuming-rest-apis-with-cloud-abap/ba-p/13465564
 
